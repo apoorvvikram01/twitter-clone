@@ -33,6 +33,7 @@ export const signupController = async (req, res) => {
       fullName,
       email,
       password: hashedPassword,
+
     });
 
     if (newUser) {
@@ -43,6 +44,12 @@ export const signupController = async (req, res) => {
         _id: newUser._id,
         fullName: newUser.fullName,
         email: newUser.email,
+        followers: newUser.followers,
+        following: newUser.following,
+        profileImage: newUser.profileImage,
+        coverImage: newUser.coverImage,
+        bio: newUser.bio,
+        link: newUser.link
       });
     } else {
       res.status(400).json({
@@ -74,9 +81,15 @@ export const loginController = async (req, res) => {
 
     res.status(201).json({
       message: "User created successfully",
-      _id: user._id,
-      fullName: user.fullName,
-      email: user.email,
+      _id: newUser._id,
+        fullName: newUser.fullName,
+        email: newUser.email,
+        followers: newUser.followers,
+        following: newUser.following,
+        profileImage: newUser.profileImage,
+        coverImage: newUser.coverImage,
+        bio: newUser.bio,
+        link: newUser.link
     });
   } catch (error) {
     res.status(500).json({
