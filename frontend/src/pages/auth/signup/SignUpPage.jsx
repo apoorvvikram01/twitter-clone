@@ -8,7 +8,7 @@ import { FaUser } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
-import { response } from "express";
+import {toast} from "react-hot-toast"
 
 const SignUpPage = () => {
 	const [formData, setFormData] = useState({
