@@ -115,7 +115,11 @@ export const likeUnlikePost = async (req, res) => {
         //Unlike post
         await Post.updateOne({_id:postId}, {$pull : {likes: userId}})
         await User.updateOne({_id:userId}, {$pull : {likedPost:userId}})
-        res.status(200).json({message:"Post unliked successfully"})
+
+        const updatedLikes = post.likes.filter((id) => id.toString() !== userId.toString())
+        res.status(200).json(updatedLikes)
+
+
     }
     else{
         //Like post
@@ -130,10 +134,9 @@ export const likeUnlikePost = async (req, res) => {
         type: "like"
     })
     await notification.save()
-    res.status(200).json({
-        message: " Post liked successfully"
-    }
-    )
+
+    const updatedLikes = post.likes
+    res.status(200).json(updatedLikes)
     } catch (error) {
         res.status(500).json({message:"Internal Server error"})
         console.log("Problem in like/unlike post controller", errror.message)
@@ -169,7 +172,7 @@ export const getLikedPosts = async (req, res) => {
             res.status(404).json({message:"User not found"})
         }
 
-        const likedPosts = await User.find({_id:{$in: user.likedPosts}})
+        const likedPosts = await User.find({_id:{$in: user.likedPost}})
         .populate({
             path: "user",
             select: "-password"

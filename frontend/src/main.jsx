@@ -10,7 +10,7 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false
     }
   }
-})
+});
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
